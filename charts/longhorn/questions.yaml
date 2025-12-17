@@ -17,7 +17,7 @@ questions:
         label: Longhorn Manager Image Repository
         group: Longhorn Images Settings
       - variable: image.longhorn.manager.tag
-        default: v1.9.3
+        default: v1.9.4-rc1
         description: Tag for the Longhorn Manager image.
         type: string
         label: Longhorn Manager Image Tag
@@ -29,7 +29,7 @@ questions:
         label: Longhorn Engine Image Repository
         group: Longhorn Images Settings
       - variable: image.longhorn.engine.tag
-        default: v1.9.3
+        default: v1.9.4-rc1
         description: Tag for the Longhorn Engine image.
         type: string
         label: Longhorn Engine Image Tag
@@ -41,7 +41,7 @@ questions:
         label: Longhorn UI Image Repository
         group: Longhorn Images Settings
       - variable: image.longhorn.ui.tag
-        default: v1.9.3
+        default: v1.9.4-rc1
         description: Tag for the Longhorn UI image.
         type: string
         label: Longhorn UI Image Tag
@@ -53,7 +53,7 @@ questions:
         label: Longhorn Instance Manager Image Repository
         group: Longhorn Images Settings
       - variable: image.longhorn.instanceManager.tag
-        default: v1.9.3
+        default: v1.9.4-rc1
         description: Tag for the Longhorn Instance Manager image.
         type: string
         label: Longhorn Instance Manager Image Tag
@@ -65,7 +65,7 @@ questions:
         label: Longhorn Share Manager Image Repository
         group: Longhorn Images Settings
       - variable: image.longhorn.shareManager.tag
-        default: v1.9.3
+        default: v1.9.4-rc1
         description: Tag for the Longhorn Share Manager image.
         type: string
         label: Longhorn Share Manager Image Tag
@@ -78,7 +78,7 @@ questions:
         label: Longhorn Backing Image Manager Image Repository
         group: Longhorn Images Settings
       - variable: image.longhorn.backingImageManager.tag
-        default: v1.9.3
+        default: v1.9.4-rc1
         description: >-
           Tag for the Backing Image Manager image. When unspecified, Longhorn uses the default value.
         type: string
@@ -91,7 +91,7 @@ questions:
         label: Longhorn Support Bundle Kit Image Repository
         group: Longhorn Images Settings
       - variable: image.longhorn.supportBundleKit.tag
-        default: v0.0.69
+        default: v0.0.75
         description: Tag for the Longhorn Support Bundle Manager image.
         type: string
         label: Longhorn Support Bundle Kit Image Tag
@@ -855,6 +855,21 @@ questions:
         group: Longhorn Default Settings
         type: boolean
         default: false
+      - variable: defaultSettings.v2DataEngineGuaranteedInstanceManagerCPU
+        label: Guaranteed Instance Manager CPU for V2 Data Engine
+        description: >-
+          Number of millicpu on each node to be reserved for each Instance Manager pod when the V2 Data Engine is enabled. The default value is \"1250\". **Caution** [1] Specifying a value of \"0\" disables CPU requests for Instance Manager pods. You must specify an integer larger than \"1000\". [2] This is a global setting. Modifying the value triggers an automatic restart of the Instance Manager pods. Do not modify the value while volumes are still attached.
+        group: Longhorn Default Settings
+        type: int
+        min: 1000
+        default: 1250
+      - variable: defaultSettings.v2DataEngineCPUMask
+        label: CPU Mask for V2 Data Engine
+        description: >-
+          CPU cores on which the Storage Performance Development Kit (SPDK) target daemon should run. The SPDK target daemon is located in each Instance Manager pod. Ensure that the number of cores is less than or equal to the guaranteed Instance Manager CPUs for the V2 Data Engine. The default value is \"0x1\".
+        group: Longhorn Default Settings
+        type: string
+        default: '0x1'
   - variable: persistence.defaultClass
     default: 'true'
     description: Setting that allows you to specify the default Longhorn StorageClass.
@@ -1169,16 +1184,3 @@ questions:
           - rke1
           - rke2
           - k3s
-      - variable: defaultSettings.v2DataEngineGuaranteedInstanceManagerCPU
-        label: Guaranteed Instance Manager CPU for V2 Data Engine
-        description: >-
-          Number of millicpu on each node to be reserved for each Instance Manager pod when the V2 Data Engine is enabled. The default value is \"1250\". **Caution** [1] Specifying a value of \"0\" disables CPU requests for Instance Manager pods. You must specify an integer larger than \"1000\". [2] This is a global setting. Modifying the value triggers an automatic restart of the Instance Manager pods. Do not modify the value while volumes are still attached.
-        type: int
-        min: 1000
-        default: 1250
-      - variable: defaultSettings.v2DataEngineCPUMask
-        label: CPU Mask for V2 Data Engine
-        description: >-
-          CPU cores on which the Storage Performance Development Kit (SPDK) target daemon should run. The SPDK target daemon is located in each Instance Manager pod. Ensure that the number of cores is less than or equal to the guaranteed Instance Manager CPUs for the V2 Data Engine. The default value is \"0x1\".
-        type: string
-        default: '0x1'
