@@ -80,7 +80,7 @@ The `values.yaml` contains items used to tweak a deployment of this chart.
 | global.cattle.windowsCluster.nodeSelector | object | `{"kubernetes.io/os":"linux"}` | Node selector for Linux nodes that can run user-deployed Longhorn components. |
 | global.cattle.windowsCluster.tolerations | list | `[{"effect":"NoSchedule","key":"cattle.io/os","operator":"Equal","value":"linux"}]` | Toleration for Linux nodes that can run user-deployed Longhorn components. |
 | global.imagePullSecrets | list | `[]` | Global override for image pull secrets for container registry. |
-| global.imageRegistry | string | `"docker.io"` | Global override for container image registry. |
+| global.imageRegistry | string | `""` | Global override for container image registry. |
 | global.nodeSelector | object | `{}` | Node selector for nodes allowed to run user-deployed components such as Longhorn Manager, Longhorn UI, and Longhorn Driver Deployer. |
 | global.tolerations | list | `[]` | Toleration for nodes allowed to run user-deployed components such as Longhorn Manager, Longhorn UI, and Longhorn Driver Deployer. |
 
@@ -130,7 +130,7 @@ The `values.yaml` contains items used to tweak a deployment of this chart.
 | image.longhorn.shareManager.tag | string | `"v1.10.x-head"` | Tag for the Longhorn Share Manager image. |
 | image.longhorn.supportBundleKit.registry | string | `""` | Registry for the Longhorn Support Bundle Manager image. |
 | image.longhorn.supportBundleKit.repository | string | `"longhornio/support-bundle-kit"` | Repository for the Longhorn Support Bundle Manager image. |
-| image.longhorn.supportBundleKit.tag | string | `"v0.0.84"` | Tag for the Longhorn Support Bundle Manager image. |
+| image.longhorn.supportBundleKit.tag | string | `"v0.0.85"` | Tag for the Longhorn Support Bundle Manager image. |
 | image.longhorn.ui.registry | string | `""` | Registry for the Longhorn UI image. |
 | image.longhorn.ui.repository | string | `"longhornio/longhorn-ui"` | Repository for the Longhorn UI image. |
 | image.longhorn.ui.tag | string | `"v1.10.x-head"` | Tag for the Longhorn UI image. |
@@ -194,6 +194,7 @@ Longhorn consists of user-deployed components (for example, Longhorn Manager, Lo
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| longhornManager.distro | string | `"longhorn"` | Optional distro identifier used for upgrade responder reporting. |
 | longhornManager.log.format | string | `"plain"` | Format of Longhorn Manager logs. (Options: "plain", "json") |
 | longhornManager.nodeSelector | object | `{}` | Node selector for Longhorn Manager. Specify the nodes allowed to run Longhorn Manager. |
 | longhornManager.priorityClass | string | `"longhorn-critical"` | PriorityClass for Longhorn Manager. |
